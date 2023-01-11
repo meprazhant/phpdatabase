@@ -8,37 +8,54 @@
 </head>
 <body>
 
-    <table border="2px">
+<table border="2px">
+        <thead>
 
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Username</th>
-        <th>Actions</th>
-    </tr>
-    <?php
+            <tr>
+                <th>SN</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <?php
     require_once "connect.php";
 
     $sql = "SELECT * FROM user";
     $result = $conn->query($sql);
 
     if($result->num_rows > 0){
-        for($i=0;$i<$result->num_rows;$i++){
-            $row = $result->fetch_assoc();
-            echo "<tr><td>" . $row["id"] . "</td><td>" . $row["name"] . "</td><td>" . $row["email"] . "</td><td>" . $row["username"] . "</td><td>"."<form method='POST' action='userdel.php'><button type='submit' name='submit' value=".$row['id'].">Delete</button></form>"."</td></tr>";
-        }
-    }else{
+        echo "<tbody>";
+        foreach($result as $index => $res) : 
+            ?>
+         <tr>
+            <td><?php echo $index +1 ?></td>
+            <td><?php echo $res['id']?></td>
+            <td><?php echo $res['name']?></td>
+            <td><?php echo $res['email']?></td>
+            <td><?php echo $res['username']?></td>
+            <td><a href="userdel.php?id=<?php echo $res['id'] ?>&name=<?php echo $res['name']?>">Delete</a></td>
+            <td><a href="update.php?id=<?php echo $res['id'] ?>&name=<?php echo $res['name']?>">Update</a></td>
+
+        </tr>
+        <?php
+        endforeach;
+        echo "</tbody>";
+        
+        }else{
         echo "No Data available";
-    }
+        }
 
-    ?>
-    
-
+        ?>
 
 
 
-</table>
+
+
+    </table>
     
 </body>
 </html>
