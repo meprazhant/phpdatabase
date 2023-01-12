@@ -1,13 +1,14 @@
 <?php
+    require_once "connect.php";
+    
     if(isset($_POST['submit'])){
         echo "button clicked";
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $username = $_POST['username'];
 
-        
+        // prevent from mysql injection
+        $name = mysqli_real_escape_string($conn,$_POST['name']);
+        $email = mysqli_real_escape_string($conn,$_POST['email']);
+        $username = mysqli_real_escape_string($conn,$_POST['username']);
 
-        require_once "connect.php";
 
         $sql = "INSERT INTO user (name,email,username) VALUES ('$name','$email','$username')";
         
