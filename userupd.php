@@ -1,11 +1,13 @@
 <?php
+      require_once "connect.php";
    if(isset($_POST['submit'])){
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $id = $_GET['id'];
+      
+      // prevent from mysql injection
+      $id = mysqli_real_escape_string($conn, $_GET['id']);
+      $name = mysqli_real_escape_string($conn, $_POST['name']);
+      $email = mysqli_real_escape_string($conn, $_POST['email']);
+      $username = mysqli_real_escape_string($conn, $_POST['username']);
 
-    require_once "connect.php";
 
     $sql = "UPDATE user set name='$name',email='$email',username='$username' WHERE id='$id'";
 
@@ -16,7 +18,7 @@
         header("Location: table.php");
    }else{
     echo "Error";
-    echo "<a href='/table.php'>Back to table </a>";
+    echo "<a href='table.php'>Back to table </a>";
    }
    }
 
