@@ -24,6 +24,7 @@
 </head>
 <body>
     <div class="userform">
+        <h2>Hola, Gracias hehe</h2>
         <form action="post.php" method="post">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" placeholder="Enter your name">
